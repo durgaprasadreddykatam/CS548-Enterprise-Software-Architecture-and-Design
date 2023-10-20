@@ -1,0 +1,12 @@
+{
+  "patients": [
+    {
+      "id": "ec9f403f-c498-48c7-add3-6236612a6e28",
+      "name": "durga",
+      "dob": "1993-02-23",
+      "treatments": []
+    }
+  ],
+  "providers": [],
+  "treatments": []
+}

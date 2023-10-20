@@ -1,0 +1,21 @@
+{
+  "patients": [],
+  "providers": [],
+  "treatments": [
+    {
+      "type-tag": "DRUGTREATMENT",
+      "drug": "e",
+      "dosage": 2.0,
+      "start-date": "2023-02-12",
+      "end-date": "2023-02-12",
+      "frequency": 2,
+      "id": "ecd26530-73ad-4924-90a3-4a33ffd3c217",
+      "patient-id": "a87214b1-610c-445a-bfc8-9460adcd3799",
+      "patient-name": "e",
+      "provider-id": "a87214b1-610c-445a-bfc8-9460adcd3799",
+      "provider-name": "r",
+      "diagnosis": "r",
+      "followup-treatments": []
+    }
+  ]
+}
