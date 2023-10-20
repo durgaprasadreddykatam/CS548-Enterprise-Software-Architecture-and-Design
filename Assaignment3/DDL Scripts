@@ -1,0 +1,149 @@
+create table public.drugtreatment (
+  id bigint primary key not null,
+  diagnosis character varying(255),
+  dosage double precision,
+  drug character varying(255),
+  enddate date,
+  frequency integer,
+  startdate date,
+  treatmentid character varying(255) not null,
+  patient_fk bigint,
+  provider_fk bigint,
+  foreign key (patient_fk) references public.patient (id)
+  match simple on update no action on delete no action,
+  foreign key (provider_fk) references public.provider (id)
+  match simple on update no action on delete no action
+);
+create unique index drugtreatment_treatmentid_key on drugtreatment using btree (treatmentid);
+
+create table public.drugtreatment_treatment (
+  drugtreatment_id bigint not null,
+  followuptreatments_id character varying(255) not null,
+  primary key (drugtreatment_id, followuptreatments_id)
+);
+
+create table public.patient (
+  id bigint primary key not null,
+  dob date,
+  name character varying(255),
+  patientid character varying(255) not null
+);
+create unique index patient_patientid_key on patient using btree (patientid);
+
+create table public.physiotherapytreatment (
+  id bigint primary key not null,
+  diagnosis character varying(255),
+  treatmentid character varying(255) not null,
+  patient_fk bigint,
+  provider_fk bigint,
+  foreign key (patient_fk) references public.patient (id)
+  match simple on update no action on delete no action,
+  foreign key (provider_fk) references public.provider (id)
+  match simple on update no action on delete no action
+);
+create unique index physiotherapytreatment_treatmentid_key on physiotherapytreatment using btree (treatmentid);
+
+create table public.physiotherapytreatment_treatment (
+  physiotherapytreatment_id bigint not null,
+  followuptreatments_id character varying(255) not null,
+  primary key (physiotherapytreatment_id, followuptreatments_id)
+);
+
+create table public.physiotherapytreatment_treatmentdates (
+  physiotherapytreatment_id bigint,
+  treatmentdates date,
+  foreign key (physiotherapytreatment_id) references public.treatment (id)
+  match simple on update no action on delete no action
+);
+
+create table public.provider (
+  id bigint primary key not null,
+  name character varying(255),
+  npi character varying(255),
+  providerid character varying(255) not null
+);
+create unique index provider_providerid_key on provider using btree (providerid);
+
+create table public.radiologytreatment (
+  id bigint primary key not null,
+  diagnosis character varying(255),
+  treatmentid character varying(255) not null,
+  patient_fk bigint,
+  provider_fk bigint,
+  foreign key (patient_fk) references public.patient (id)
+  match simple on update no action on delete no action,
+  foreign key (provider_fk) references public.provider (id)
+  match simple on update no action on delete no action
+);
+create unique index radiologytreatment_treatmentid_key on radiologytreatment using btree (treatmentid);
+
+create table public.radiologytreatment_treatment (
+  radiologytreatment_id bigint not null,
+  followuptreatments_id character varying(255) not null,
+  primary key (radiologytreatment_id, followuptreatments_id)
+);
+
+create table public.radiologytreatment_treatmentdates (
+  radiologytreatment_id bigint,
+  treatmentdates date,
+  foreign key (radiologytreatment_id) references public.treatment (id)
+  match simple on update no action on delete no action
+);
+
+create table public.sequence (
+  seq_name character varying(50) primary key not null,
+  seq_count numeric(38,0)
+);
+
+create table public.surgerytreatment (
+  id bigint primary key not null,
+  diagnosis character varying(255),
+  dischargeinstructions character varying(255),
+  surgerydate date,
+  treatmentid character varying(255) not null,
+  patient_fk bigint,
+  provider_fk bigint,
+  foreign key (patient_fk) references public.patient (id)
+  match simple on update no action on delete no action,
+  foreign key (provider_fk) references public.provider (id)
+  match simple on update no action on delete no action
+);
+create unique index surgerytreatment_treatmentid_key on surgerytreatment using btree (treatmentid);
+
+create table public.surgerytreatment_treatment (
+  surgerytreatment_id bigint not null,
+  followuptreatments_id character varying(255) not null,
+  primary key (surgerytreatment_id, followuptreatments_id)
+);
+
+create table public.treatment (
+  id bigint primary key not null,
+  dtype character varying(31),
+  diagnosis character varying(255),
+  treatmentid character varying(255) not null,
+  patient_fk bigint,
+  provider_fk bigint,
+  dischargeinstructions character varying(255),
+  surgerydate date,
+  dosage double precision,
+  drug character varying(255),
+  enddate date,
+  frequency integer,
+  startdate date,
+  foreign key (patient_fk) references public.patient (id)
+  match simple on update no action on delete no action,
+  foreign key (provider_fk) references public.provider (id)
+  match simple on update no action on delete no action
+);
+create unique index treatment_treatmentid_key on treatment using btree (treatmentid);
+
+create table public.treatment_treatment (
+  treatment_id bigint not null,
+  followuptreatments_id bigint not null,
+  primary key (treatment_id, followuptreatments_id),
+  foreign key (followuptreatments_id) references public.treatment (id)
+  match simple on update no action on delete no action,
+  foreign key (treatment_id) references public.treatment (id)
+  match simple on update no action on delete no action
+);
+
